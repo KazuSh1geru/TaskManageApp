@@ -1,0 +1,19 @@
+<h1>会員登録</h1>
+
+<%= form_with model: @user ,url: signup_path do |f| %>
+<dl>
+    <dt><%= f.label :name%></dt>
+    <dd><%= f.text_field :name %></dd>
+    <dt><%= f.label :birthday%></dt>
+    <dd><%= f.date_field :birthday %></dd>
+    <dt><%= f.label :email%></dt>
+    <dd><%= f.email_field :email %></dd>
+    <%# password_fieldの仕様で消える %>
+    <dt><%= f.label :password %></dt>
+    <dd><%= f.password_field :password %></dd>
+    <dt><%= f.label :password %>（確認）</dt>
+    <dd><%= f.password_field :password_confirmation %></dd>
+</dl>
+<%= f.submit "GO TO HEAVEN" %>
+<% end %>
+
