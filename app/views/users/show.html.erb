@@ -9,8 +9,16 @@
         一覧したいタスク
         <%= f.select :sort, {'未着手': 0, '実施中': 1, '完了': 2}, { include_blank: '選択してください'} %>
         <%#= f.text_field :sort %>
-
         <%= f.submit "Search", name: nil%>
+    <% end %>
+</p>
+<%# Doneの消去画面作る %>
+<p>
+    <%= form_with url: root_path, method: :get do |f| %>
+        <%= f.hidden_field :delete_done, value: 0 %>
+        <%#= f.text_field :sort %>
+
+        <%= f.submit "完了タスクを一括削除", name: nil%>
     <% end %>
 </p>
 
@@ -39,7 +47,7 @@
         <td><%= t.id %></td>
         <td>
             <%= form_with url: root_path, method: :get do |form| %>
-                <%= form.select :change, [0, 1, 2] ,selected: t.status%>
+                <%= form.select :change, {'未着手': 0, '実施中': 1, '完了': 2} ,selected: t.status%>
                 <%= form.hidden_field :task_id, value: t.id%>
                 <%= form.submit "変更"%>
             <% end %>

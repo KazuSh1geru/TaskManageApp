@@ -42,20 +42,11 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  # 一括削除
-  def refresh_done
-    # done
-    @done = current_user.tasks.where(status: 2)
-    @done.destroy_all
-    flash[:success] = "削除しました"
-    redirect_to root_path
-  end
-
   private
   def set_task
     @task = Task.find(params[:id])
   end
-  
+
   def task_params
     params.require(:task).permit(:name, :status)
   end
