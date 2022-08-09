@@ -1,0 +1,11 @@
+<% @document_title = "タスク編集画面"%>
+
+<%= form_with model: @task do |f| %>
+    <dl>
+        <dt>タスク</dt>
+        <dd><%= f.text_field :name, value: @task.name %></dd>
+        
+    </dl>
+    <%= f.submit "更新する" %>
+    <%= link_to "キャンセル", root_path %>
+<% end %>

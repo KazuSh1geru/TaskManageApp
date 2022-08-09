@@ -1,3 +1,30 @@
 <% @document_title = "TOP PAGE" %>
 
 <h3><%= @user.name %>さん、ようこそ</h3>
+
+<%= form_with model: @task do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit "新規タスク"%>
+<% end %>
+<%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>タスク</th>
+        <th>作成日時</th>
+        <th>編集</th>
+        <th>削除</th>
+    </tr>
+
+    <% @tasks.each do |t| %>
+    <tr>
+        <td><%= t.id %></td>
+        <td><%= t.name %></td>
+        <td><%= l t.created_at %></td>
+        <td><%= link_to "編集", edit_task_path(t) %></td>
+        <td><%= link_to "削除", task_path(t), method: :delete %></td>
+    </tr>
+    <% end %>
+</table>
+<%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
