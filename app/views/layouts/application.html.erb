@@ -11,7 +11,7 @@
   </head>
 
   <body>
-  <h1>タイトル</h1>
+  <h1><%= @document_title %></h1>
   <% if signed_in? %>
     <%= link_to "TOP", root_path %>
     <%= link_to "サインアウト", signout_path, method: :delete %>
