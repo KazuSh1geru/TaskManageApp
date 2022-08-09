@@ -1,4 +1,5 @@
 <% @document_title = "TOP PAGE" %>
+<%= params %>
 
 <h3><%= @user.name %>さん、ようこそ</h3>
 
@@ -13,9 +14,10 @@
     <% end %>
 </p>
 
-<%= form_with model: @task do |f| %>
+<%= form_with model: @new_task do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
+    
     <%= f.submit "新規タスク"%>
 <% end %>
 <br>
@@ -35,7 +37,17 @@
     <% @tasks.each do |t| %>
     <tr>
         <td><%= t.id %></td>
-        <td><%= t.status %></td>
+        <td>
+            <%= form_with url: root_path, method: :get do |form| %>
+                <%= form.select :change, [0, 1, 2] ,selected: t.status%>
+                <%= form.hidden_field :task_id, value: t.id%>
+                <%= form.submit "変更"%>
+            <% end %>
+        </td>
+        <%#= form_with model: @post, url: root_path, do |form| %>
+            <%#= form.select :sort, {'未着手': 0, '実施中': 1, '完了': 2}, value: t.status %>
+        <%# end %>
+                    
         <td><%= t.name %></td>
         <td><%= l t.created_at %></td>
         <td><%= link_to "編集", edit_task_path(t) %></td>

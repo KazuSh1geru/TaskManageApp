@@ -3,16 +3,34 @@ class UsersController < ApplicationController
   before_action :already_signed_in, only: [:new, :create]
   
   def show
+    puts params
     @user = current_user
     # @tasks = current_user.tasks.all
     @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
-    @task = Task.new
+    @new_task = Task.new
 
     # integerで受け取る様にする
     sort = params[:sort]
     if sort.present?
       @tasks = @tasks.where(status: sort)
     end
+
+    change = params[:change]
+    if change.present?
+      task_id = params[:task_id]
+      @change_task = Task.find_by(id: task_id)
+      @change_task.update(status: change)
+    end
+
+    
+    # if @change_task.present?
+    #   puts "できた！！！"
+    # end
+    # status = params[:status]
+    # if status.present?
+    #   puts "できた！！！"
+    # end
+    
 
   end
 
