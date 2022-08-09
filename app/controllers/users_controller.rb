@@ -3,7 +3,10 @@ class UsersController < ApplicationController
   before_action :already_signed_in, only: [:new, :create]
   
   def show
-    @user = User.find_by(id: session[:user_id])
+    @user = current_user
+    @tasks = current_user.tasks.all
+    @task = Task.new
+
   end
 
   def new
