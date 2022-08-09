@@ -21,7 +21,7 @@
     <tr>
         <td><%= t.id %></td>
         <td><%= t.name %></td>
-        <td><%= t.created_at %></td>
+        <td><%= l t.created_at %></td>
         <td><%= link_to "編集", edit_task_path(t) %></td>
         <td><%= link_to "削除", task_path(t), method: :delete %></td>
     </tr>
