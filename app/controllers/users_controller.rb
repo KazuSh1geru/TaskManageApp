@@ -8,6 +8,12 @@ class UsersController < ApplicationController
     @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
     @task = Task.new
 
+    # integerで受け取る様にする
+    sort = params[:sort]
+    if sort.present?
+      @tasks = @tasks.where(status: sort)
+    end
+
   end
 
   def new

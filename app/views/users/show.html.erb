@@ -2,15 +2,30 @@
 
 <h3><%= @user.name %>さん、ようこそ</h3>
 
+<%# 検索画面作る：selectで分岐させる %>
+<p>
+    <%= form_with url: root_path, method: :get do |f| %>
+        一覧したいタスク
+        <%= f.select :sort, {'未着手': 0, '実施中': 1, '完了': 2}, { include_blank: '選択してください'} %>
+        <%#= f.text_field :sort %>
+
+        <%= f.submit "Search", name: nil%>
+    <% end %>
+</p>
+
 <%= form_with model: @task do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.submit "新規タスク"%>
 <% end %>
+<br>
+
+
 <%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 <table>
     <tr>
         <th>ID</th>
+        <th>ステータス</th>
         <th>タスク</th>
         <th>作成日時</th>
         <th>編集</th>
@@ -20,6 +35,7 @@
     <% @tasks.each do |t| %>
     <tr>
         <td><%= t.id %></td>
+        <td><%= t.status %></td>
         <td><%= t.name %></td>
         <td><%= l t.created_at %></td>
         <td><%= link_to "編集", edit_task_path(t) %></td>

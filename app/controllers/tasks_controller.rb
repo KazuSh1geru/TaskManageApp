@@ -42,9 +42,15 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  # def task_list
-  #   @tasks = Task.paginate(page: params[:page], per_page: 5)
-  # end
+  # 一括削除
+  def refresh_done
+    # done
+    @done = current_user.tasks.where(status: 2)
+    @done.destroy_all
+    flash[:success] = "削除しました"
+    redirect_to root_path
+
+  end
   private
   def set_task
     @task = Task.find(params[:id])
