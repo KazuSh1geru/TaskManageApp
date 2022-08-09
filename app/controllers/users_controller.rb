@@ -3,11 +3,21 @@ class UsersController < ApplicationController
   before_action :already_signed_in, only: [:new, :create]
   
   def show
+    puts params
     @user = current_user
     # @tasks = current_user.tasks.all
     @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
-    @task = Task.new
+    @new_task = Task.new
 
+    # integerで受け取る様にする
+    sort = params[:sort]
+    sort_tasks(sort)
+    # 変更を受け付ける
+    change = params[:change]
+    change_status(change)
+    # 一括削除を受け付ける
+    delete_done = params[:delete_done]
+    delete_done_tasks(delete_done)
   end
 
   def new
@@ -31,5 +41,25 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :name, :birthday, :email, :password, :password_confirmation
     )
+  end
+  def sort_tasks(sort)
+    if sort.present?
+      @tasks = @tasks.where(status: sort)
+    end
+  end
+  def change_status(change)
+    if change.present?
+      task_id = params[:task_id]
+      @change_task = Task.find_by(id: task_id)
+      @change_task.update(status: change)
+    end
+  end
+  def delete_done_tasks(delete_done)
+    if delete_done.present?
+      @done = current_user.tasks.where(status: 2)
+      @done.destroy_all
+      flash[:success] = "削除しました"
+      redirect_to root_path
+    end
   end
 end

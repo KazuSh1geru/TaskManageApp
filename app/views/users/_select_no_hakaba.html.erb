@@ -51,7 +51,26 @@
                 <%= form.submit "変更"%>
             <% end %>
         </td>
-        
+        <td>
+            <%= form_with url: root_path, method: :get do |form| %>
+                <%= form.hidden_field :task_id, value: t.id%>
+                <%= form.select :change, {'未着手': 0, '実施中': 1, '完了': 2} , selected: t.status, :onchange => '(this).form.submit()'%>
+                <%= form.submit "変更" %>
+            <% end %>
+        </td>
+        <td>
+            <%= select(t, :status, {'未着手': 0, '実施中': 1, '完了': 2}, selected: t.status, remote: true, url: :root_path, method: :get, params: t.status )%>
+        </td>
+        <td>
+            <select name="status" id="status" selected="<% t.status %>">
+                <option value="todo">未着手</option>
+                <option value="doing">実施中</option>
+                <option value="done">完了</option>
+            </select>
+        </td>
+        <%#= form_with model: @post, url: root_path, do |form| %>
+            <%#= form.select :sort, {'未着手': 0, '実施中': 1, '完了': 2}, value: t.status %>
+        <%# end %>
         <td><%= t.name %></td>
         <td><%= l t.created_at %></td>
         <td><%= link_to "編集", edit_task_path(t) %></td>

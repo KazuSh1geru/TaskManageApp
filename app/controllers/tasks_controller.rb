@@ -42,15 +42,13 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  # def task_list
-  #   @tasks = Task.paginate(page: params[:page], per_page: 5)
-  # end
   private
   def set_task
     @task = Task.find(params[:id])
   end
+
   def task_params
-    params.require(:task).permit(:name)
+    params.require(:task).permit(:name, :status)
   end
   def correct_user
     unless @task.user_id == current_user.id
