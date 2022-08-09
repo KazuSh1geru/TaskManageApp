@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  before_action :require_signed_in, only: [:show]
+  before_action :already_signed_in, only: [:new, :create]
+  
   def show
-    # あとでセッションに書き換える
     @user = User.find_by(id: session[:user_id])
   end
 
