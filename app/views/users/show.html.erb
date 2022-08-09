@@ -7,7 +7,7 @@
     <%= f.text_field :name %>
     <%= f.submit "新規タスク"%>
 <% end %>
-    <%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 <table>
     <tr>
         <th>ID</th>

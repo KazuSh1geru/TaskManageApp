@@ -1,12 +1,13 @@
 class TasksController < ApplicationController
   before_action :require_signed_in
-  before_action :set_task, only: [:update, :destroy, ]
+  before_action :set_task, only: [:edit, :update, :destroy, ]
+  before_action :correct_user, only: [:edit, :update, :destroy, ]
 
   
   # indexはいらん
   
   def edit
-    @task = Task.find(params[:id])
+    # @task = Task.find(params[:id])
   end
     # def new
   #   @task = Task.new
@@ -50,5 +51,11 @@ class TasksController < ApplicationController
   end
   def task_params
     params.require(:task).permit(:name)
+  end
+  def correct_user
+    unless @task.user_id == current_user.id
+      flash[:danger] = "編集できません"
+      redirect_to root_path
+    end
   end
 end
