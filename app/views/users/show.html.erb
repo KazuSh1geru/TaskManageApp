@@ -7,7 +7,7 @@
     <%= f.text_field :name %>
     <%= f.submit "新規タスク"%>
 <% end %>
-
+    <%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 <table>
     <tr>
         <th>ID</th>
@@ -16,6 +16,7 @@
         <th>編集</th>
         <th>削除</th>
     </tr>
+
     <% @tasks.each do |t| %>
     <tr>
         <td><%= t.id %></td>
@@ -25,5 +26,5 @@
         <td><%= link_to "削除", task_path(t), method: :delete %></td>
     </tr>
     <% end %>
-    
 </table>
+<%= will_paginate @tasks, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

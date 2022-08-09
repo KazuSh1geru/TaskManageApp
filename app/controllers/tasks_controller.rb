@@ -40,6 +40,10 @@ class TasksController < ApplicationController
     flash[:success] = "削除しました"
     redirect_to root_path
   end
+
+  # def task_list
+  #   @tasks = Task.paginate(page: params[:page], per_page: 5)
+  # end
   private
   def set_task
     @task = Task.find(params[:id])

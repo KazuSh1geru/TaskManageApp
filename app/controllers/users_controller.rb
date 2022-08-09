@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   
   def show
     @user = current_user
-    @tasks = current_user.tasks.all
+    # @tasks = current_user.tasks.all
+    @tasks = current_user.tasks.paginate(page: params[:page], per_page: 10)
     @task = Task.new
 
   end
