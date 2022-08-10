@@ -1,12 +1,11 @@
 <% @document_title = "タスク編集画面"%>
 
-<%= form_with model: @task do |f| %>
+<%= form_with model: [@project, @creative, @task] do |f| %>
     <dl>
         <dt>タスク</dt>
         <dd><%= f.text_field :name, value: @task.name %></dd>
         <%= f.hidden_field :status, value: @task.status %></dd>
-        
     </dl>
     <%= f.submit "更新する" %>
-    <%= link_to "キャンセル", root_path %>
+    <%= link_to "キャンセル", project_creatives_path(@project) %>
 <% end %>
