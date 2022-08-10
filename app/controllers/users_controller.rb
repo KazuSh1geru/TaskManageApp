@@ -2,23 +2,23 @@ class UsersController < ApplicationController
   before_action :require_signed_in, only: [:show]
   before_action :already_signed_in, only: [:new, :create]
   
-  def show
-    puts params
-    @user = current_user
-    # @tasks = current_user.tasks.all
-    @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
-    @new_task = Task.new
+  # def show
+  #   puts params
+  #   @user = current_user
+  #   # @tasks = current_user.tasks.all
+  #   @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
+  #   @new_task = Task.new
 
-    # integerで受け取る様にする
-    sort = params[:sort]
-    sort_tasks(sort)
-    # 変更を受け付ける
-    change = params[:change]
-    change_status(change)
-    # 一括削除を受け付ける
-    delete_done = params[:delete_done]
-    delete_done_tasks(delete_done)
-  end
+  #   # integerで受け取る様にする
+  #   sort = params[:sort]
+  #   sort_tasks(sort)
+  #   # 変更を受け付ける
+  #   # change = params[:change]
+  #   # change_status(change)
+  #   # # 一括削除を受け付ける
+  #   # delete_done = params[:delete_done]
+  #   # delete_done_tasks(delete_done)
+  # end
 
   def new
     @user = User.new
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:success]  = "登録しました"
-      redirect_to root_path
+      redirect_to tasks_path
     else
       flash.now[:danger]  = "登録に失敗しました"
       render :new
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
       @done = current_user.tasks.where(status: 2)
       @done.destroy_all
       flash[:success] = "削除しました"
-      redirect_to root_path
+      redirect_to tasks_path
     end
   end
 end

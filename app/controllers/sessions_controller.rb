@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     password = params[:session][:password]
     if signin(email, password)
       flash[:success] = "ログインに成功"
-      redirect_to root_path
+      redirect_to tasks_path
     else
       flash.now[:danger] = "ログインに失敗"
       render :new
