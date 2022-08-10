@@ -1,0 +1,21 @@
+<% @document_title = "Project 一覧" %>
+
+<%= form_with model: @new_project do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit "新規プロジェクト"%>
+<% end %>
+<br>
+<table>
+    <tr>
+        <th>タスク</th>
+        <th>作成日時</th>
+    </tr>
+
+    <% @projects.each do |t| %>
+    <tr>
+        <td><%= link_to t.name, project_tasks_path(t) %></td>
+        <td><%= l t.created_at %></td>
+    </tr>
+    <% end %>
+</table>

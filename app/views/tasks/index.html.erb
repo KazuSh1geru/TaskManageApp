@@ -5,21 +5,21 @@
 
 <%# 検索画面作る：selectで分岐させる %>
 <p>
-    <%= form_with url: tasks_path, method: :get do |f| %>
+    <%= form_with url: project_tasks_path(params[:project_id]), method: :get do |f| %>
         一覧したいタスク
         <%= f.select :sort, {'未着手': 0, '実施中': 1, '完了': 2}, selected: @sort%>
         <%= f.submit "Search", name: nil%>
     <% end %>
 </p>
 <%# Doneの消去画面作る %>
-<%= button_to "完了タスク削除", done_path, method: :delete, data: { confirm: '削除しますか?' }%>
+<%#= button_to "完了タスク削除", done_path, method: :delete, data: { confirm: '削除しますか?' }%>
 
 <br>
-<%= form_with model: @new_task do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.submit "新規タスク"%>
-<% end %>
+<%#= form_with model: @new_task do |f| %>
+    <%#= f.label :name %>
+    <%#= f.text_field :name %>
+    <%#= f.submit "新規タスク"%>
+<%# end %>
 <br>
 
 
