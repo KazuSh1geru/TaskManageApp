@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   get "signin", to: "sessions#new"
   post "signin", to: "sessions#create"
   delete "signout", to: "sessions#destroy"
+  
+  delete "tasks/delete_done_tasks", to: "tasks#delete_done_tasks", as: "done"
   resources "tasks"
   
-  patch "tasks/:id/change_status", to: "tasks#change_status"
-  delete "tasks/delete_done_tasks", to: "tasks#delete_done_tasks", as: "done"
+  patch "tasks/:id/change_status", to: "tasks#change_status", as: "change"
+  
   # delete "tasks/:id/delete_done_tasks", to: "tasks#delete_done_tasks", as: "done"
 end

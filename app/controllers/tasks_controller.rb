@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :require_signed_in
   before_action :set_task, only: [:edit, :update, :destroy,]
   before_action :correct_user, only: [:edit, :update, :destroy, ]
-
+  protect_from_forgery
   # indexはいらん
   def index
     @user = current_user
@@ -10,8 +10,8 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
     @new_task = Task.new
 
-    sort = params[:sort]
-    sort_tasks(sort)
+    @sort = params[:sort]
+    sort_tasks(@sort)
 
   end
   
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     flash[:success] = "削除しました"
     redirect_to tasks_path
   end
-  # 
+
   def change_status
     change = params[:change]
     if change.present?
