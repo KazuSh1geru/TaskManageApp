@@ -26,6 +26,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+# for debug
+gem 'pry-rails' 
+gem 'pry-byebug' 
+gem 'pry-stack_explorer'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

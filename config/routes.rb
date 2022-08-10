@@ -8,10 +8,18 @@ Rails.application.routes.draw do
   post "signin", to: "sessions#create"
   delete "signout", to: "sessions#destroy"
   
-  delete "tasks/delete_done_tasks", to: "tasks#delete_done_tasks", as: "done"
-  resources "tasks"
+  # delete "tasks/delete_done_tasks", to: "tasks#delete_done_tasks", as: "done"
   
-  patch "tasks/:id/change_status", to: "tasks#change_status", as: "change"
+  patch "projects/:project_id/creatives/:creative_id/tasks/:id/change_status", to: "tasks#change_status", as: "change"
+  
+  resources "projects" do
+    resources "creatives" do
+      resources "tasks"
+    end
+  end
+
+  
+  
   
   # delete "tasks/:id/delete_done_tasks", to: "tasks#delete_done_tasks", as: "done"
 end
