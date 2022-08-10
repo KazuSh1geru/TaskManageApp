@@ -9,4 +9,5 @@ class User < ApplicationRecord
     has_many :tasks
     has_many :projects
     has_many :creatives
+    has_many :project_tasks, through: :projects, source: :task
 end

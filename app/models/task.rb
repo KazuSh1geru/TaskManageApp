@@ -3,6 +3,7 @@ class Task < ApplicationRecord
     validates :status, length: {maximum: 20}    
     belongs_to :user
     belongs_to :creative
+    belongs_to :project
 
     enum task_status: {
         todo: 0,

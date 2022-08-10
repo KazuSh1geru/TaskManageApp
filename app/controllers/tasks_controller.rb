@@ -5,10 +5,11 @@ class TasksController < ApplicationController
   protect_from_forgery
   # indexはいらん
   def index
-
     @user = current_user
-    @tasks = current_user.tasks.paginate(page: params[:page], per_page: 20)
+    @project = Project.find(params[:project_id])
+    @tasks = current_user.tasks.where(project_id: @project.id).paginate(page: params[:page], per_page: 20)
     @new_task = Task.new
+    # @new_task = Task.new(project_id: params[:project_id])
 
     @sort = params[:sort]
     sort_tasks(@sort)
@@ -36,8 +37,9 @@ class TasksController < ApplicationController
       flash[:success] = "作成しました"
       redirect_to project_tasks_path(params[:project_id])
     else
-      flash.now[:danger] = "作成失敗"
-      render project_tasks_path(params[:project_id])
+      flash[:danger] = "作成失敗"
+      redirect_to project_tasks_path
+      
     end
   end
   def destroy
@@ -69,9 +71,10 @@ class TasksController < ApplicationController
   private
   def set_task
     @task = Task.find(params[:id])
+    @project = Project.find(params[:project_id])
   end
   def task_params
-    params.require(:task).permit(:name, :status)
+    params.require(:task).permit(:project_id, :user_id,:name, :status)
   end
   def correct_user
     unless @task.user_id == current_user.id
