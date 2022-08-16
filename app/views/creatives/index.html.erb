@@ -4,6 +4,8 @@
 <h3><%= @user.name %>さん、ようこそ</h3>
 
 
+<h3><%= @project.name %></h3>
+<br>
 <%= form_with model: [@project, @new_creative] do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -12,14 +14,15 @@
 <% end %>
 
 
-<br>
-<h3><%= @project.name %></h3>
+
+
 <div class="project">
 
     <%= will_paginate @creatives, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
     <% @creatives.each do |creative| %>
     <div class="creative">
-        
+        <h3><%= creative.name %></h3>
+            
         <div>
             
             <table>
@@ -65,5 +68,17 @@
     
     <% end %>
     <%= will_paginate @creatives, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+    <%= form_with model: [@project, @new_creative] do |f| %>
     
+    <%
+=begin%>
+ <h3>
+        <%= f.text_field :name %>
+        <%= f.hidden_field :project_id, value: @project.id %>
+        <%= f.submit "新規制作物"%>
+    </h3> 
+<%
+=end%>
+<% end %>
+
 </div>
