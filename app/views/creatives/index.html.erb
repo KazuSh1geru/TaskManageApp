@@ -21,7 +21,10 @@
     <%= will_paginate @creatives, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
     <% @creatives.each do |creative| %>
     <div class="creative">
-        <h3><%= creative.name %></h3>
+        <h3><%= creative.name %>
+            　<%= link_to "編集", edit_project_creative_path(@project,creative) %>
+            　<%= link_to "削除", project_creative_path(@project, creative), method: :delete, data: { confirm: '削除しますか?' }%>
+        </h3>
             
         <div>
             
@@ -31,8 +34,8 @@
                     <th>タスク名</th>
                     
                     <th>status</th>
-                    <th><%= link_to "編集", edit_project_creative_path(@project,creative) %></th>
-                    <th><%= link_to "削除", project_creative_path(@project, creative), method: :delete, data: { confirm: '削除しますか?' }%></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <br>
                 <% creative.tasks.each do |task| %>

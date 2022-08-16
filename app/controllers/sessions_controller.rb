@@ -19,9 +19,12 @@ class SessionsController < ApplicationController
 
   def destroy
     # DBに保管していないからnilにする
+    # binding.pry
     session[:user_id] = nil
     flash[:success] = "ログアウトしました"
-    redirect_to signin_url
+    # redirect_to signin_url
+    redirect_to root_path
+
   end
   private
   def signin(email, password)

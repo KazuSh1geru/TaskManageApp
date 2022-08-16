@@ -42,6 +42,9 @@ class CreativesController < ApplicationController
   end
 
   def destroy
+    @creative.tasks.each do |task|
+      task.destroy
+    end
     @creative.destroy
     flash[:success] = "削除しました"
     redirect_to project_creatives_path(params[:project_id])
