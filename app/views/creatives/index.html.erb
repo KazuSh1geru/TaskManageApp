@@ -1,18 +1,17 @@
 <% @document_title = "TOP PAGE" %>
-<%= params %>
 <br>
 
 <h3><%= @user.name %>さん、ようこそ</h3>
 
-<br>
+
 <%= form_with model: [@project, @new_creative] do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <dd><%= @project %></dd>
-    <dd><%= @project.id %></dd>
-    <dd><%= f.hidden_field :project_id, value: @project.id %></dd>
+    <%= f.hidden_field :project_id, value: @project.id %>
     <%= f.submit "新規制作物"%>
 <% end %>
+
+
 <br>
 <h3><%= @project.name %></h3>
 <div class="project">
@@ -20,11 +19,14 @@
     <%= will_paginate @creatives, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
     <% @creatives.each do |creative| %>
     <div class="creative">
+        
         <div>
+            
             <table>
                 <tr>
-                    <th><%= creative.id %></th>
-                    <th><%= creative.name %></th>
+                    
+                    <th>タスク名</th>
+                    
                     <th>status</th>
                     <th><%= link_to "編集", edit_project_creative_path(@project,creative) %></th>
                     <th><%= link_to "削除", project_creative_path(@project, creative), method: :delete, data: { confirm: '削除しますか?' }%></th>
@@ -33,7 +35,7 @@
                 <% creative.tasks.each do |task| %>
                 <tr>
                     
-                        <td><%= task.id %></td>
+                        
                         <td><%= task.name %></td>
                         <td>
                             <%= form_with url: change_path(@project, creative, task), method: :patch do |form| %>

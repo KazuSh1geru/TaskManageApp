@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     def already_signed_in
         if signed_in?
             flash[:danger] = "すでにサインインしています"
-            redirect_to root_path
+            redirect_to projects_path
         end
     end
 end
