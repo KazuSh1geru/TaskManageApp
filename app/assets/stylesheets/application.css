@@ -129,7 +129,8 @@ td {
     font-size: 1.25rem;
     background-image: linear-gradient(270deg,#40bcff,#67caff);
     border-radius: 1.25rem;
-    box-shadow: 0 4px 24px rgb(55 79 103 / 8%);
+    /* box-shadow: 0 4px 24px rgb(55 79 103 / 8%); */
+    box-shadow: 0 4px 24px black;
     color: #fff;
     display: block;
     font-weight: 900;
@@ -145,7 +146,7 @@ td {
     background-color: #fff;
     border-bottom: 1px solid;
     border-color: #ecf1f5;
-    box-shadow: 0 0 48px rgb(147 158 170 / 10%);
+    box-shadow: 0 0 10px black;
     display: grid;
     grid-gap: 1rem;
     gap: 1rem;
@@ -198,7 +199,8 @@ h3 {
 }
 
 .creative__header {
-    box-shadow: 0 0 48px rgb(147 158 170 / 10%);
+    /* box-shadow: 0 0 48px rgb(147 158 170 / 10%); */
+    box-shadow: 0 0 2px black;
     display: grid;
     grid-gap: 1rem;
     gap: 1rem;
@@ -217,7 +219,8 @@ h3 {
     font-size: 1.25rem;
     background-image: linear-gradient(270deg,#40bcff,#67caff);
     border-radius: 1.25rem;
-    box-shadow: 0 4px 24px rgb(55 79 103 / 8%);
+    /* box-shadow: 0 4px 24px rgb(55 79 103 / 8%); */
+    box-shadow: 0 4px 24px black;
     color: #fff;
     display: block;
     font-weight: 900;
