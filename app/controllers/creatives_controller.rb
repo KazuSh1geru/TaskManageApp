@@ -4,6 +4,8 @@ class CreativesController < ApplicationController
   before_action :set_creative, only: [:edit, :update, :destroy,]
   before_action :correct_user, only: [:edit, :update, :destroy, ]
   protect_from_forgery
+
+  # 評価値の計算をbefore_actionで設定する？
   # indexはいらん
   def index
     # binding.pry
@@ -12,7 +14,6 @@ class CreativesController < ApplicationController
     @creatives = @project.creatives.paginate(page: params[:page], per_page: 20)
     @new_creative = Creative.new
     @new_task = Task.new
-    # @new_creative = creative.new(project_id: params[:project_id])
   end
   
   def edit
@@ -31,7 +32,6 @@ class CreativesController < ApplicationController
   end
 
   def create
-    # binding.pry
     @creative = Creative.new(creative_params)
     if @creative.save
       flash[:success] = "作成しました"
@@ -51,6 +51,15 @@ class CreativesController < ApplicationController
     redirect_to project_creatives_path(params[:project_id])
   end
 
+  # def calc_creative_complete_time(creative)
+  #   time_amount = 0
+  #   creative.tasks.each do |task|
+  #     complete_time = task.complete
+  #     time_amount += complete_time
+  #   end
+  #   return time_amount
+  # end
+  # helper_method :calc_creative_complete_time
   private
   def set_creative
     @user = current_user
