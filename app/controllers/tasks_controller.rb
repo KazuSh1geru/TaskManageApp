@@ -61,6 +61,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
+    @user = current_user
     @creative = Creative.find(params[:creative_id])
     @project = Project.find(params[:project_id])
     @task = Task.find(params[:id])

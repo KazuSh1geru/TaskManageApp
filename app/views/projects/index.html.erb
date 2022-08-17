@@ -6,16 +6,18 @@
     <%= f.submit "新規プロジェクト"%>
 <% end %>
 <br>
-<table>
-    <tr>
-        <th>タスク</th>
-        <th>作成日時</th>
-    </tr>
+<div class="projects">
+    <table>
+        <tr>
+            <th>タスク</th>
+            <th>作成日時</th>
+        </tr>
 
-    <% @projects.each do |t| %>
-    <tr>
-        <td><%= link_to t.name, project_creatives_path(t) %></td>
-        <td><%= l t.created_at %></td>
-    </tr>
-    <% end %>
-</table>
+        <% @projects.each do |t| %>
+        <tr>
+            <td><%= link_to t.name, project_creatives_path(t) %></td>
+            <td><%= l t.created_at %></td>
+        </tr>
+        <% end %>
+    </table>
+</div>

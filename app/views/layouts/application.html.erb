@@ -13,21 +13,24 @@
   </head>
 
   <body>
-      <header><%= @document_title %></header>
-      <main>
+      <header class="header">
+        <%= @document_title %>
         <% if signed_in? %>
-          <%= link_to "TOP", projects_path %>
-          <%= link_to "サインアウト", signout_path, method: :delete %>
+          <%= link_to "#{@user.name}さん", projects_path, {class: "header__link"}%>
+          <%= button_to "サインアウト", signout_path, {method: :delete ,class: "header__btn btnlink inline"}%>
         <% else %>
-          <%= link_to "会員登録", signup_path %>
-          <%= link_to "サインイン", signin_path %>
+          <%= link_to "会員登録", signup_path , {class: "header__link"}%>
+          <%= link_to "サインイン", signin_path, {class: "header__btn btnlink inline"} %>
         <% end %>
+      </header>
+      <main>
+        
 
         <%= render "commons/flash" %>
   
         <%= yield %>
       </main>
-      <footer>Created by KUSAGI.co,lt</footer>
+      <footer class="footer">Created by KUSAGI.co,lt</footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>
