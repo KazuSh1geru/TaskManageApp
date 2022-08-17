@@ -68,8 +68,8 @@
                         <td><%= task.name %></td>
                         <td>
                             <%= form_with url: change_path(@project, creative, task), method: :patch do |form| %>
-                                <%= form.select :change, {'未着手': 0, '実施中': 1, '完了': 2} , selected: task.status%>
-                                <%= form.submit "変更"%>
+                                <%= form.select :change, {'未着手': 0, '実施中': 1, '完了': 2} , {selected: task.status}, {onchange: "this.form.submit()"}%>
+                                <%#= form.submit "変更"%>
                             <% end %>
                         </td>
                         <td><%= task.complete %>min</td>
