@@ -70,6 +70,10 @@ module ApplicationHelper
         return clasify_hash
     end
 
+    def calc_task_proba(creatives)
+        
+    end
+
     def eval_resource
 
     end
