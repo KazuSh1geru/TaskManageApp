@@ -60,6 +60,8 @@ class TasksController < ApplicationController
       redirect_to project_creatives_path(@project)
   end
 
+
+
   private
   def set_task
     @user = current_user

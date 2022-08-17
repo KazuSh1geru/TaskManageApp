@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
             redirect_to projects_path
         end
     end
+
+    # def calc_creative_complete_time(creative)
+    #     time_amount = 0
+    #     creative.tasks.each do |task|
+    #         complete_time = task.complete
+    #         time_amount += complete_time
+    #     end
+    #     return time_amount
+    # end    
+    # helper_method :calc_creative_complete_time
 end
