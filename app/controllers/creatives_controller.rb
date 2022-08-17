@@ -52,6 +52,7 @@ class CreativesController < ApplicationController
 
   private
   def set_creative
+    @user = current_user
     @creative = Creative.find(params[:id])
     @project = Project.find(params[:project_id])
   end
