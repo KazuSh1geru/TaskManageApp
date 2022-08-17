@@ -29,8 +29,9 @@ class TasksController < ApplicationController
       flash[:success] = "作成しました"
       redirect_to project_creatives_path(@project)
     else
-      flash.now[:danger] = "作成失敗"
-      render project_creatives_path(@project)
+      flash[:danger] = "作成失敗です。入力欄を埋めてください"
+      # render project_creatives_path(@project)
+      redirect_to project_creatives_path(@project)
     end
   end
   def destroy
@@ -67,7 +68,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
   def task_params
-    params.require(:task).permit(:creative_id, :name, :status)
+    params.require(:task).permit(:creative_id, :name, :status, :complete)
   end
   def correct_user
     unless @project.user_id == current_user.id

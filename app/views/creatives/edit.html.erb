@@ -4,8 +4,9 @@
     <dl>
         <dt>制作物</dt>
         <dd><%= f.text_field :name, value: @creative.name %></dd>
-        
-        
+        <dt>締切</dt>
+        <dd><%= f.date_field :deadline, value: @creative.deadline %></dd>
+
     </dl>
     <%= f.submit "更新する" %>
     <%= link_to "キャンセル", project_creatives_path(@project) %>

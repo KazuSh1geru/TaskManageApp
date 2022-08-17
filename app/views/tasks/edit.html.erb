@@ -4,6 +4,7 @@
     <dl>
         <dt>タスク</dt>
         <dd><%= f.text_field :name, value: @task.name %></dd>
+        <dd><%= f.number_field :complete, value: @task.complete %> min</dd>
         <%= f.hidden_field :status, value: @task.status %></dd>
     </dl>
     <%= f.submit "更新する" %>
