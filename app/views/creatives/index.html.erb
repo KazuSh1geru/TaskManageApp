@@ -3,6 +3,9 @@
 <% risk_value = 40 %>
 <% success_value = 70 %>
 
+<%= get_task_calendar(@creatives).values %>
+<%= sum(clasify_creatives_tasks(@creatives).values) %>
+
 <h1>
     <span>
         <%= @project.name %>
