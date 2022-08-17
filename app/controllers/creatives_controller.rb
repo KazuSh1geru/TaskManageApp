@@ -1,3 +1,4 @@
+require 'date'
 class CreativesController < ApplicationController
   before_action :require_signed_in
   before_action :set_creative, only: [:edit, :update, :destroy,]
@@ -57,7 +58,7 @@ class CreativesController < ApplicationController
     @project = Project.find(params[:project_id])
   end
   def creative_params
-    params.require(:creative).permit(:project_id,:name)
+    params.require(:creative).permit(:project_id,:name, :deadline)
   end
   def correct_user
     unless @project.user_id == current_user.id

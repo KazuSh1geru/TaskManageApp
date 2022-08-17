@@ -1,12 +1,42 @@
 <% @document_title = "TOP PAGE" %>
-<h1><%= @project.name %></h1>
+<% current_date = Date.today %>
+<% risk_value = 40 %>
+<% success_value = 70 %>
+
+<h1>
+    <span>
+        <%= @project.name %>
+    </span>
+    <span>
+        リスク評価：<%= risk_value %> 点
+    </span>
+    <span>  </span>
+    <span>
+        調整評価：<%= success_value %> 点
+    </span>
+</h1>
 <br>
+
 <%= form_with model: [@project, @new_creative] do |f| %>
-    
-    <%= f.text_field :name, placeholder: "発表資料, アプリ" %>
-    <%= f.hidden_field :project_id, value: @project.id %>
-    <%= f.submit "新規制作物"%>
+<div class="projects">
+    <table class="new">
+        <tr>
+            <td>制作物</td>
+            <td>締め切り</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><%= f.text_field :name, placeholder: "発表資料, アプリ" %></td>
+            <td><%= f.date_field :deadline, value: current_date %></td>
+            <%= f.hidden_field :project_id, value: @project.id %>
+            <td><%= f.submit "New Creative"%></td>
+            
+        </tr>
+        
+    </table>
+</div>
 <% end %>
+<br>
 
 
 <div class="project">
@@ -14,21 +44,21 @@
     <%= will_paginate @creatives, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
     <% @creatives.each do |creative| %>
     <div class="creative">
+        
         <h3 class="creative__header">
-            <%= creative.name %>
-            <%#= link_to "編集", edit_project_creative_path(@project,creative) ,{class: "header__link"}%>
+            <span class="c_name">  <%= creative.name %></span>
+            <span class="deadline">締切まで <%= (creative.deadline - current_date).to_i %> 日</span>            
             <%= link_to image_tag("edit.png"), edit_project_creative_path(@project,creative) ,{class: "edit__link edit"}%>
-            <%#= button_to "編集", edit_project_creative_path(@project,creative) ,{class: "header__btn btnlink inline"}%>
             <%= link_to image_tag("delete.png"), project_creative_path(@project, creative), {method: :delete, data: { confirm: '削除しますか?' }, class: "inline"}%>
             
         </h3>
             
         <div>
-            
             <table>
                 <tr>                    
                     <th>タスク名</th>                    
                     <th>status</th>
+                    <th>完了見込</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -42,21 +72,24 @@
                                 <%= form.submit "変更"%>
                             <% end %>
                         </td>
+                        <td><%= task.complete %>min</td>
                         <td><%= link_to image_tag("edit.png"), edit_project_creative_task_path(@project, creative, task) %></td>
                         <td><%= link_to image_tag("delete.png"), project_creative_task_path(@project, creative, task), method: :delete, data: { confirm: '削除しますか?' }%></td>
                     
                 </tr>
                 <% end %>
-                
             </table>
         </div>
         <br>
         <div>
             <%= form_with model: [@project, creative, @new_task] do |f| %>
-                <%= f.text_field :name , placeholder: "〇〇作成"%>
+                <%= f.text_field :name , placeholder: "タスク名 例:〇〇作成"%>
+                <br>
+                <span>完了見込み時間は </span><%= f.number_field :complete , {placeholder: 30, style: "width : 50px;"}%>min
                 <%= f.hidden_field :status, value: 0 %>
+                <br>
                 <%= f.hidden_field :creative_id, value: creative.id %>
-            <%= f.submit "新規タスク"%>
+            <%= f.submit "New Task"%>
         </div>        
     </div>
     
