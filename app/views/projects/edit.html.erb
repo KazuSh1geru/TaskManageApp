@@ -1,2 +1,10 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<% @document_title = "制作物 編集画面"%>
+
+<%= form_with model: [@project] do |f| %>
+    <dl>
+        <dt>プロジェクト</dt>
+        <dd><%= f.text_field :name, value: @project.name %></dd>
+    </dl>
+    <%= f.submit "更新する" %>
+    <%= link_to "キャンセル", projects_path %>
+<% end %>

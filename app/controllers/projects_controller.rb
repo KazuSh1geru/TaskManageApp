@@ -24,12 +24,28 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    @project.creatives.each do |creative|
+      creative.tasks.each do |task|
+        task.destroy
+      end
+      creative.destroy
+    end
+    @project.destroy
+    flash[:success] = "削除しました"
+    redirect_to projects_path(params[:project_id])
   end
 
   def show
   end
 
   def update
+    if @project.update(project_params)
+      flash[:success] = "更新しました"
+      redirect_to projects_path
+    else
+      flash[:danger] = "更新失敗"
+      redirect_to projects_path
+    end
   end
   private
   def set_project

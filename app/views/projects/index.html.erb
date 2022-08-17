@@ -13,10 +13,12 @@
             <th>作成日時</th>
         </tr>
 
-        <% @projects.each do |t| %>
+        <% @projects.each do |project| %>
         <tr>
-            <td><%= link_to t.name, project_creatives_path(t) %></td>
-            <td><%= l t.created_at %></td>
+            <td><%= link_to project.name, project_creatives_path(project) %></td>
+            <td><%= l project.created_at %></td>
+            <td><%= link_to image_tag("edit.png"), edit_project_path(project) ,{class: "edit__link edit"}%></td>
+            <td><%= link_to image_tag("delete.png"), project_path(project), method: :delete, data: { confirm: '削除しますか?' }%></td>
         </tr>
         <% end %>
     </table>
