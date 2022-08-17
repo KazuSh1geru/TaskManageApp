@@ -7,11 +7,14 @@
         <%= @project.name %>
     </span>
     <span>
-        リスク評価：<%= (eval_risk(@creatives)*100).to_i %>
+        
+        <%# if (eval_risk(@creatives)*100).to_i %>
+        <%# リスク評価：<%= (eval_risk(@creatives)*100).to_i %>
+        <%# end %>
     </span>
     <span>  </span>
     <span>
-        達成評価：<%= (eval_success(@creatives)*100).to_i %>
+        <%# 達成評価：= (eval_success(@creatives)*100).to_i %>
     </span>
 </h1>
 <br>
@@ -49,8 +52,18 @@
             <span class="deadline">締切まで <%= (creative.deadline - current_date).to_i %> 日</span>            
             <%= link_to image_tag("edit.png"), edit_project_creative_path(@project,creative) ,{class: "edit__link edit"}%>
             <%= link_to image_tag("delete.png"), project_creative_path(@project, creative), {method: :delete, data: { confirm: '削除しますか?' }, class: "inline"}%>
-            <%= calc_creative_complete_time(creative) %>
         </h3>
+        <br>
+        <%# タスク生成フォーム %>
+        <div>
+            <%= form_with model: [@project, creative, @new_task] do |f| %>
+                <%= f.text_field :name , placeholder: "タスク名 例:〇〇作成"%>                
+                <span>完了時間: </span><%= f.number_field :complete , {placeholder: 30, style: "width : 50px;", value: 30}%>min
+                <%= f.hidden_field :status, value: 0 %>
+                <%= f.hidden_field :creative_id, value: creative.id %>
+            <%= f.submit "New Task"%>
+            <% end %>
+        </div>
             
         <div>
             <table>
@@ -80,19 +93,9 @@
             </table>
         </div>
         <br>
-        <div>
-            <%= form_with model: [@project, creative, @new_task] do |f| %>
-                <%= f.text_field :name , placeholder: "タスク名 例:〇〇作成"%>
-                <br>
-                <span>完了見込み時間は </span><%= f.number_field :complete , {placeholder: 30, style: "width : 50px;"}%>min
-                <%= f.hidden_field :status, value: 0 %>
-                <br>
-                <%= f.hidden_field :creative_id, value: creative.id %>
-            <%= f.submit "New Task"%>
-        </div>        
     </div>
     
-    <% end %>
+    
     
     <% end %>
     <%= will_paginate @creatives, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

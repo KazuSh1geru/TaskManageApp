@@ -14,9 +14,9 @@
 
   <body>
       <header class="header">
-        <%= @document_title %>
+        <span><%= link_to "Evalist", projects_path, {class: "header__link"}%></span>
         <% if signed_in? %>
-          <%= link_to "#{@user.name}さん", projects_path, {class: "header__link"}%>
+          <%= link_to "TOP", projects_path, {class: "header__link"}%>
           <%= button_to "サインアウト", signout_path, {method: :delete ,class: "header__btn btnlink inline"}%>
         <% else %>
           <%= link_to "会員登録", signup_path , {class: "header__link"}%>

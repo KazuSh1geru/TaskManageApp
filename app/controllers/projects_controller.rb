@@ -18,8 +18,8 @@ class ProjectsController < ApplicationController
       flash[:success] = "作成しました"
       redirect_to projects_path
     else
-      flash.now[:danger] = "作成失敗"
-      render projects_path
+      flash[:danger] = "作成失敗. プロジェクト名を訂正してください"
+      redirect_to projects_path
     end
   end
 
