@@ -3,6 +3,9 @@ require 'date'
 GOOD_TASK_TIME = 30
 BAD_TASK_TIME = 60
 
+RESOURCE_COMFORT = 120
+RESOURCE_LIMIT = 240
+
 module ApplicationHelper
 
     # カレンダーを使用して、プロジェクト全体のリソース調整度を評価
@@ -70,15 +73,53 @@ module ApplicationHelper
         return clasify_hash
     end
 
-    def calc_task_proba(creatives)
+    def clasify_resources(creatives)
+        clasify_hash = {
+            good: 0,
+            normal: 0,
+            bad: 0
+        }
+        calender = get_task_calendar(creatives).values
+        all_day = calender.length
+        calender.each do |day_task|
+            if day_task <= RESOURCE_COMFORT
+                clasify_hash[:good] += 1
+            elsif day_task >= RESOURCE_LIMIT
+                clasify_hash[:bad] += 1
+            else
+                clasify_hash[:normal] += 1
+            end
         
+        end
+        return clasify_hash
     end
 
-    def eval_resource
-
+    def calc_task_proba(creatives)
+        clasify_hash = clasify_creatives_tasks(creatives)
+        sum_cnt = clasify_hash.values.sum
+        clasify_hash.each do |key, value|
+            clasify_hash[key] = value * 1.0 / sum_cnt
+        end
+        return clasify_hash
     end
 
-    def eval_risk
+    def calc_resource_proba(creatives)
+        clasify_hash = clasify_creatives_tasks(creatives)
+        sum_cnt = clasify_hash.values.sum
+        clasify_hash.each do |key, value|
+            clasify_hash[key] = value * 1.0 / sum_cnt
+        end
+        return clasify_hash
+    end
 
+    def eval_success(creatives)
+        task_proba_hash = calc_task_proba(creatives)
+        resource_proba_hash = calc_resource_proba(creatives)
+        return (task_proba_hash[:good] + resource_proba_hash[:good])
+    end
+    def eval_risk(creatives)
+        task_proba_hash = calc_task_proba(creatives)
+        resource_proba_hash = calc_resource_proba(creatives)
+        return (task_proba_hash[:bad] + resource_proba_hash[:bad])
     end
 end

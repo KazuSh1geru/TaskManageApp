@@ -1,21 +1,17 @@
 <% @document_title = "TOP PAGE" %>
 <% current_date = Date.today %>
-<% risk_value = 40 %>
-<% success_value = 70 %>
 
-<%= get_task_calendar(@creatives).values %>
-<%= sum(clasify_creatives_tasks(@creatives).values) %>
 
 <h1>
     <span>
         <%= @project.name %>
     </span>
     <span>
-        リスク評価：<%= risk_value %> 点
+        リスク評価：<%= (eval_risk(@creatives)*100).to_i %>
     </span>
     <span>  </span>
     <span>
-        調整評価：<%= success_value %> 点
+        達成評価：<%= (eval_success(@creatives)*100).to_i %>
     </span>
 </h1>
 <br>
