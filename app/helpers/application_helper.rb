@@ -1,5 +1,3 @@
-require 'date'
-
 GOOD_TASK_TIME = 30
 BAD_TASK_TIME = 60
 
@@ -18,7 +16,7 @@ module ApplicationHelper
     end
 
     def get_dead_time(creative)
-        current_date = Date.today
+        current_date = creative.created_at.to_date
         dead_time = (creative.deadline - current_date).to_i
         return dead_time
     end
@@ -130,7 +128,7 @@ module ApplicationHelper
     end
     def project_length(creatives)
         length = 0
-        current_date = Date.today
+        current_date = creatives[0].created_at.to_date
         creatives.each do |creative|
             length = [length, get_dead_time(creative)].max
         end
