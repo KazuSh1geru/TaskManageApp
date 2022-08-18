@@ -14,6 +14,11 @@
  *= require_self
  */
 
+.eval__link {
+    display: inline-block;
+    text-align: right;
+}
+
 .new {
     background-color: pink;
 }
@@ -126,10 +131,12 @@ td {
 }
 
 .register {
-    border: 2px solid black;
+    /* border: 2px solid black; */
+    display: inline-block;
+    /* text-align: center;
     margin: 0 auto;
-    max-width: 500px;
-    display: flex;
+    /* max-width: 500px; */
+    
 
 }
 

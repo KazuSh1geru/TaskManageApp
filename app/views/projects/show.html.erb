@@ -1,11 +1,10 @@
-<% current_date = Date.today %>
 <% task_expect, resource_expect = eval_risk_expect(@project.creatives) %>
 <%#= task_value =eval_task_risk_value(@project.creatives) %>
 <%#= resource_value =eval_resource_risk_value(@project.creatives) %>
 
 <h1>
     <span>
-        <%= @project.name %>
+        <%= link_to @project.name, project_creatives_path(@project), {class: "header__link eval__link"}%>
     </span>
 </h1>
 <h1>
@@ -14,6 +13,8 @@
             <span>タスク調整力：<%= task_expect.round %> / 100</span>
         <% end %>
     </span>
+</h1>
+<h1>
     <span>
         <% if (eval_risk(@project.creatives)*100).to_i %>
             <span>リソース調整力：<%= resource_expect.round %> / 100</span>
@@ -83,6 +84,7 @@
             </table>
         </div>
         <br>
+        <%# <h2>コメント</h2> %>
     </div>
     <% end %>
     
