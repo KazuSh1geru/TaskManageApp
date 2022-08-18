@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :require_signed_in
   before_action :set_project, only: [:show, :edit, :update, :destroy,]
+  before_action :move_show, only: [:show]
   before_action :correct_user, only: [:show, :edit, :update, :destroy, ]
 
   def index
@@ -57,6 +58,23 @@ class ProjectsController < ApplicationController
   private
   def set_project
     @project = Project.find(params[:id])
+  end
+  def move_show
+    @project = Project.find(params[:id])
+    if @project.creatives.length > 0
+      @project.creatives.each do |creative|
+        unless creative.tasks.length > 2
+          flash[:danger] = "タスクを3つ以上登録してください"
+          redirect_to project_creatives_path(@project)
+          return
+        end
+      end
+      # redirect_to project_path(@project)
+      return
+    else
+      flash[:danger] = "制作物を登録してください"
+      redirect_to project_creatives_path(@project)
+    end
   end
   def project_params
     params.require(:project).permit(:name)

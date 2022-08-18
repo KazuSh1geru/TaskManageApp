@@ -19,10 +19,11 @@ module ProjectsHelper
         x.fdiv(60)
     end
     # 2σ範囲でばらつくと仮定
-    def over_task_pred(std, len)
-        return std * len * SIGMA_CONST
+    def over_task_pred(std)
+        return std * SIGMA_CONST
     end
 
+    # 
     def eval_resource_risk_value(creatives)
         all_resource = 60.0 * 4 * project_length(creatives)
         sum_over_task = 0
@@ -30,9 +31,10 @@ module ProjectsHelper
         
         creatives.each do |creative|
             tasks_arr = creative.tasks.map{|task| task.complete}
-            sum_over_task += over_task_pred(std(tasks_arr), tasks_arr.length)
+            sum_over_task += over_task_pred(std(tasks_arr)) * tasks_arr.length
             sum_task += tasks_arr.sum            
         end
+
         return ((sum_over_task + sum_task) - (all_resource)).fdiv(creatives.length)
     end
 
@@ -41,7 +43,7 @@ module ProjectsHelper
         tasks_length = 0
         creatives.each do |creative|
             tasks_arr = creative.tasks.map{|task| task.complete}
-            sum_over_task += over_task_pred(std(tasks_arr), tasks_arr.length)
+            sum_over_task += over_task_pred(std(tasks_arr)) * tasks_arr.length
             tasks_length += tasks_arr.length
         end
         return sum_over_task.fdiv(tasks_length)

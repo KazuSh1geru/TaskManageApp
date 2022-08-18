@@ -9,21 +9,23 @@
 </h1>
 <h1>
     <span>
-        <% if (eval_risk(@project.creatives)*100).to_i %>
+        <% if task_expect.finite?  %>
             <span>タスク調整力：<%= task_expect.round %> / 100</span>
+        <% else %>
+            <%= 0 %>
         <% end %>
     </span>
 </h1>
 <h1>
     <span>
-        <% if (eval_risk(@project.creatives)*100).to_i %>
+        <% if resource_expect.finite? %>
             <span>リソース調整力：<%= resource_expect.round %> / 100</span>
         <% end %>
     </span>
 </h1>
 <h1>
     <span>
-        <% if (eval_success(@project.creatives)*100).to_i %>
+        <% if resource_expect.finite? and task_expect.finite?%>
             <span>プロジェクト評価：<%= task_expect.round + resource_expect.round %></span>
         <% end %>
     </span>
@@ -74,12 +76,12 @@
                     <td><%= len = tasks_arr.length%></td>
                 </tr>
                 <tr>                    
-                    <% mean= sum.fdiv(len) %>
+                    <% mean = sum.fdiv(len) %>
                     <td><%= min2hour(mean).round(1) %> hour</td>
                 </tr>
                 <% std = std(tasks_arr) %>                    
-                <tr>          
-                    <td><%= min2hour(over_task_pred(std, len)).round(1) %> hour</td>
+                <tr>
+                    <td><%= min2hour((mean / std) * mean + over_task_pred(std)).round(1) %> hour</td>
                 </tr>
             </table>
         </div>
