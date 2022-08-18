@@ -7,7 +7,6 @@ RESOURCE_COMFORT = 120
 RESOURCE_LIMIT = 240
 
 module ApplicationHelper
-
     # カレンダーを使用して、プロジェクト全体のリソース調整度を評価
     def calc_creative_complete_time(creative)
         time_amount = 0
@@ -25,6 +24,14 @@ module ApplicationHelper
     end
 
     def calc_mean_complete_time(creative)
+        dead_time = get_dead_time(creative)
+        time_amount = calc_creative_complete_time(creative)
+        if dead_time == 0
+            return 0
+        end
+        return time_amount / dead_time
+    end
+    def calc_std_complete_time(creative)
         dead_time = get_dead_time(creative)
         time_amount = calc_creative_complete_time(creative)
         if dead_time == 0
@@ -111,7 +118,6 @@ module ApplicationHelper
         end
         return clasify_hash
     end
-
     def eval_success(creatives)
         task_proba_hash = calc_task_proba(creatives)
         resource_proba_hash = calc_resource_proba(creatives)
@@ -121,5 +127,13 @@ module ApplicationHelper
         task_proba_hash = calc_task_proba(creatives)
         resource_proba_hash = calc_resource_proba(creatives)
         return (task_proba_hash[:bad] + resource_proba_hash[:bad])
+    end
+    def project_length(creatives)
+        length = 0
+        current_date = Date.today
+        creatives.each do |creative|
+            length = [length, get_dead_time(creative)].max
+        end
+        return length
     end
 end

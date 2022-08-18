@@ -1,0 +1,90 @@
+<% current_date = Date.today %>
+<% task_expect, resource_expect = eval_risk_expect(@project.creatives) %>
+<%#= task_value =eval_task_risk_value(@project.creatives) %>
+<%#= resource_value =eval_resource_risk_value(@project.creatives) %>
+
+<h1>
+    <span>
+        <%= @project.name %>
+    </span>
+</h1>
+<h1>
+    <span>
+        <% if (eval_risk(@project.creatives)*100).to_i %>
+            <span>タスク調整力：<%= task_expect.round %> / 100</span>
+        <% end %>
+    </span>
+    <span>
+        <% if (eval_risk(@project.creatives)*100).to_i %>
+            <span>リソース調整力：<%= resource_expect.round %> / 100</span>
+        <% end %>
+    </span>
+</h1>
+<h1>
+    <span>
+        <% if (eval_success(@project.creatives)*100).to_i %>
+            <span>プロジェクト評価：<%= task_expect.round + resource_expect.round %></span>
+        <% end %>
+    </span>
+</h1>
+    
+
+<br>
+
+<div class="project">
+    <div class="eval_list"> 
+        <h3 class="creative__header">
+            <span class="c_name">columns \ creatives</span>
+        </h3>      
+    <div class="values">
+        <table>
+            <tr>
+                <th>総タスク量</th>
+            </tr>
+            <tr>                    
+                <th>総タスク数</th>                    
+            </tr>
+            <tr>                    
+                <th>タスク時間:平均</th>
+            </tr>
+            <tr>          
+                <th>超過タスク予測値</th>
+            </tr>
+        </table>
+    </div>
+    
+    
+    </div>
+    <% @project.creatives.each do |creative| %>
+    <div class="eval_list">
+        <h3 class="creative__header">
+            <span class="c_name"><%= creative.name %></span>
+        </h3>            
+        <div class="values">
+            <% tasks_arr = creative.tasks.map{|task| task.complete}%>
+            
+            <table>
+                <tr>                    
+                    <% sum = tasks_arr.sum %>
+                    <td><%= min2hour(sum).round(1) %> hour</td>
+                </tr>
+                <tr>                    
+                
+                    <td><%= len = tasks_arr.length%></td>
+                </tr>
+                <tr>                    
+                    <% mean= sum.fdiv(len) %>
+                    <td><%= min2hour(mean).round(1) %> hour</td>
+                </tr>
+                <% std = std(tasks_arr) %>                    
+                <tr>          
+                    <td><%= min2hour(over_task_pred(std, len)).round(1) %> hour</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+    </div>
+    <% end %>
+    
+
+</div>
