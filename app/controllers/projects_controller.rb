@@ -1,15 +1,18 @@
 class ProjectsController < ApplicationController
   before_action :require_signed_in
-  before_action :set_project, only: [:edit, :update, :destroy,]
-  before_action :correct_user, only: [:edit, :update, :destroy, ]
+  before_action :set_project, only: [:show, :edit, :update, :destroy,]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy, ]
 
   def index
     @user = current_user
     @projects = current_user.projects.all
     @new_project = Project.new
   end
-
   def edit
+  end
+
+  def show
+    @user = current_user
   end
 
   def create
@@ -36,6 +39,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @projects = current_user.projects.all
+    @new_project = Project.new
+
   end
 
   def update
