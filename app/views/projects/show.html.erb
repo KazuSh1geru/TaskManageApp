@@ -10,7 +10,7 @@
 <h1>
     <span>
         <% if task_expect.finite?  %>
-            <span>タスク調整力：<%= task_expect.round %> / 100</span>
+            <span>タスク調整力：<%= task_expect.round %> / 50 </span>
         <% else %>
             <%= 0 %>
         <% end %>
@@ -19,18 +19,17 @@
 <h1>
     <span>
         <% if resource_expect.finite? %>
-            <span>リソース調整力：<%= resource_expect.round %> / 100</span>
+            <span>リソース調整力：<%= resource_expect.round %> / 50 </span>
         <% end %>
     </span>
 </h1>
 <h1>
     <span>
         <% if resource_expect.finite? and task_expect.finite?%>
-            <span>プロジェクト評価：<%= task_expect.round + resource_expect.round %></span>
+            <span>プロジェクト評価：<%= task_expect.round + resource_expect.round %> / 100</span>
         <% end %>
     </span>
 </h1>
-    
 
 <br>
 
@@ -89,6 +88,8 @@
         <%# <h2>コメント</h2> %>
     </div>
     <% end %>
-    
-
 </div>
+
+<%#= image_tag("scare.png", class: "img__sample")%>
+<%#= image_tag("zawa.jpeg", class: "img__sample")%>
+

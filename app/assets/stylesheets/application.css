@@ -14,6 +14,11 @@
  *= require_self
  */
 
+.img__sample {
+    height: 500px;
+    width: 500px;
+}
+
 .eval__link {
     display: inline-block;
     text-align: right;
@@ -26,7 +31,7 @@
 .deadline {
     /* font-size: 60%; */
     /* font-size: 0.6em; */
-    font-size: 0.6vw;
+    font-size: 1.0vw;
 }
 .projects {
     display: inline-block;
